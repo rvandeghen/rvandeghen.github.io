@@ -1,3 +1,3 @@
 # rvandeghen.github.io
 
-This is a [https://rvandeghen.github.io/](test)
+This is a [test](https://rvandeghen.github.io/)
