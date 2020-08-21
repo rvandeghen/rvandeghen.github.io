@@ -208,7 +208,7 @@ figure {
 		display: block;
 		margin-bottom: 2em;
 		font-size: 12px;
-		text-transform: uppercase;
+		// text-transform: uppercase;
 	}
 	#colorlib-logo {
 		text-align: right;
@@ -325,7 +325,7 @@ figure {
 				display: inline;
 				list-style: none;
 				a {
-					color: rgba(255,255,255,.3);
+					// color: rgba(255,255,255,.3);
 					padding: 4px;
 					&:hover, &:active, &:focus {
 						text-decoration: none;
@@ -334,6 +334,10 @@ figure {
 					}
 				}
 			}
+		}
+		span {
+			position: absolute;
+			bottom: 0;
 		}
 	}
 }
