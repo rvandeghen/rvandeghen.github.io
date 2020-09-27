@@ -1733,4 +1733,9 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   opacity: 0;
 }
 
+.course-line {
+  display: flex;
+  flex-direction: column;
+}
+
 /*# sourceMappingURL=style.css.map */
