@@ -260,6 +260,16 @@ figure figcaption {
   bottom: 0;
 }
 
+/* Google Scholar icon styling - updated for Academic Icons */
+.colorlib-footer ul li a .ai-google-scholar {
+    font-size: 18px;
+    color: #2c98f0; /* Blue to match other icons */
+}
+
+.colorlib-footer ul li a:hover .ai-google-scholar {
+    color: #2c98f0; /* Hover color */
+}
+
 .container-wrap {
   max-width: 1170px;
   margin: 0 auto;
@@ -524,6 +534,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   width: 100%;
   height: 600px;
   margin-bottom: 30px;
+
 }
 
 .about-desc h3 {
@@ -1322,7 +1333,6 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
 }
 .colorlib-social li a {
   font-size: 22px;
@@ -1331,7 +1341,6 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   -ms-border-radius: 7px;
@@ -1595,7 +1604,6 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
   width: 30px;
   height: 2px;
   color: #000;
@@ -1735,7 +1743,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
 
 .course-line {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
 }
 
 /*# sourceMappingURL=style.css.map */

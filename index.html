@@ -42,6 +42,12 @@
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
+	<!-- Add Font Awesome for publication icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<!-- Academic Icons for Google Scholar -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<!-- Publications CSS -->
+	<link rel="stylesheet" href="css/publications.css">
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -63,22 +69,22 @@
 					<h1 id="colorlib-logo"><a href="index.html">Renaud Vandeghen</a></h1>
 					<span class="position">PhD Student in Computer Vision
 						</br><a href="https://www.montefiore.uliege.be/cms/c_3482888/en/montefiore-institute.be"
-							target="_blank" rel="noopener"> @ULiege - Montefiore Institute</a>
+							target="_blank" rel="noopener"> University of Liège - Montefiore Institute</a>
 					</span>
 				</div>
 				<nav id="colorlib-main-menu" role="navigation" class="navbar">
 					<div class="collapse">
 						<ul>
-							<li class="active"><a href="index.html" data-nav-section="about">About</a></li>
-							<!-- <li><a href="publications.html" data-nav-section="publications">Publications</a></li> -->
-							<li><a href="courses.html" data-nav-section="courses">Courses</a></li>
+							<li class="active"><a href="#" data-nav-section="about">About</a></li>
+							<li><a href="publications.html" data-nav-section="publications">Publications</a></li>
+							<!-- <li><a href="courses.html" data-nav-section="courses">Courses</a></li> -->
 						</ul>
 					</div>
 				</nav>
 				<div class="colorlib-footer">
 					<span>
 						<div>
-							<p><i class="icon-mail"></i> renaud.vandeghen@elr.be</p>
+							<p><i class="icon-mail"></i> r.vandeghen@uliege.be</p>
 							<!-- <p>Renaud Vandeghen <i class="icon-home"></i></p> -->
 						</div>
 						<ul>
@@ -86,6 +92,8 @@
 							</li>
 							<li><a href="https://www.linkedin.com/in/renaud-vandeghen/" target="_blank" rel="noopener"><i
 										class="icon-linkedin2"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?user=kpDRpBwAAAAJ" target="_blank" rel="noopener">
+								<i class="ai ai-google-scholar big-icon"></i></a></li>
 						</ul>
 						<p><small>
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -108,7 +116,86 @@
 									<div class="col-md-12">
 										<div class="about-desc">
 											<span class="heading-meta">About</span>
-											<p>Put my text here</p>
+											<p>I am currently a PhD student at the University of Liège, under the supervision of Prof. Marc Van Droogenbroeck. My research focuses on computer vision, with particular interests in semi-supervised and self-supervised learning, as well as 3D reconstruction.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				 <!-- Publications Section (Summary) -->
+				<section class="colorlib-publications" data-section="publications">
+					<div class="colorlib-narrow-content">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+									<div class="col-md-12">
+										<div class="about-desc">
+											<span class="heading-meta">Selected Publications</span>
+											<!-- <h2 class="colorlib-heading">Recent Research</h2> -->
+											<!-- <p>Recent publications.</p> -->
+											
+											<section class="publications-container">
+												<ul class="publications-list">
+													<li class="publication" data-year="2025">
+														<div class="pub-title">Triangle Splatting for Real-Time Radiance Field Rendering</div>
+														<div class="pub-authors">
+															<span class="author-coauthor">Jan Held</span>, <span class="author-self author-coauthor">Renaud Vandeghen</span>, Adrien Deliege, Abdullah Hamdi, Silvio Giancola, Anthony Cioppa, Andrea Vedaldi, Bernard Ghanem, Andrea Tagliasacchi, and Marc Van Droogenbroeck
+														</div>
+														<div class="pub-venue">
+															<em>arXiv preprint</em>, 2025
+														</div>
+														<div class="pub-links">
+															<a href="https://trianglesplatting.github.io/" class="doi-link" target="_blank"><i class="fas fa-globe"></i> Project Page</a>
+															<a href="https://github.com/trianglesplatting/triangle-splatting" class="doi-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+															<a href="https://arxiv.org/abs/2505.19175" class="doi-link" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+														</div>
+													</li>
+													<li class="publication" data-year="2025">
+														<div class="pub-title">3D Convex Splatting: Radiance Field Rendering with 3D Smooth Convexes - <span class="highlight-note">CVPR 2025 Highlight</span></div>
+														<div class="pub-authors">
+															<span class="author-coauthor">Jan Held</span>, <span class="author-self author-coauthor">Renaud Vandeghen</span>, <span class="author-coauthor">Abdullah Hamdi</span>, Adrien Deliège, Anthony Cioppa, Silvio Giancola, Andrea Vedaldi, Bernard Ghanem, and Marc Van Droogenbroeck
+														</div>
+														<div class="pub-venue">
+															In <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2025.
+														</div>
+														<div class="pub-links">
+															<a href="https://convexsplatting.github.io/" class="doi-link" target="_blank"><i class="fas fa-globe"></i> Project Page</a>
+															<a href="https://github.com/convexsplatting/convex-splatting" class="doi-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+															<a href="https://arxiv.org/abs/2411.14974" class="doi-link" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+														</div>
+													</li>
+													<li class="publication" data-year="2024">
+														<div class="pub-title">Efficient Image Pre-training with Siamese Cropped Masked Autoencoders - <span class="venue-note">ECCV 2024</span></div>
+														<div class="pub-authors">
+															<span class="author-coauthor">Alexandre Eymaël</span>, <span class="author-self author-coauthor">Renaud Vandeghen</span>, Anthony Cioppa, Silvio Giancola, Bernard Ghanem, and Marc Van Droogenbroeck
+														</div>
+														<div class="pub-venue">
+															In <em>European Conference on Computer Vision (ECCV)</em>, 2024
+														</div>
+														<div class="pub-links">
+															<a href="https://github.com/alexandre-eymael/CropMAE" class="doi-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+															<a href="https://arxiv.org/abs/2403.17823" class="doi-link" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+														</div>
+													</li>
+													<li class="publication" data-year="2023">
+														<div class="pub-title">Adaptive Self-Training for Object Detection - <span class="venue-note">ICCVW 2023</span></div>
+														<div class="pub-authors">
+															<span class="author-self">Renaud Vandeghen</span>, Gilles Louppe, and Marc Van Droogenbroeck
+														</div>
+														<div class="pub-venue">
+															In <em>IEEE/CVF International Conference on Computer Vision Workshops (ICCV Workshops)</em>, 2023
+														</div>
+														<div class="pub-links">
+															<a href="https://github.com/rvandeghen/ASTOD" class="doi-link" target="_blank"><i class="fab fa-github"></i> Code</a>
+															<a href="https://arxiv.org/abs/2212.05911" class="doi-link" target="_blank"><i class="ai ai-arxiv"></i> arXiv</a>
+														</div>
+													</li>
+
+												</ul>
+											</section>
 										</div>
 									</div>
 								</div>
@@ -135,6 +222,65 @@
 	<!-- Counters -->
 	<script src="js/jquery.countTo.js"></script>
 
+	<script>
+		document.getElementById('year-filter').addEventListener('change', function() {
+			const selectedYear = this.value;
+			const publications = document.querySelectorAll('.publication');
+			
+			publications.forEach(pub => {
+				if (selectedYear === 'all' || pub.dataset.year === selectedYear) {
+					pub.style.display = 'block';
+				} else {
+					pub.style.display = 'none';
+				}
+			});
+		});
+
+		// Add this code to fix section navigation
+		document.addEventListener('DOMContentLoaded', function() {
+			// Update active menu item based on current section
+			const updateNavActive = function() {
+				const sections = document.querySelectorAll('section[data-section]');
+				const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+				
+				sections.forEach(section => {
+					const sectionId = section.getAttribute('data-section');
+					const menuItem = document.querySelector(`a[data-nav-section="${sectionId}"]`);
+					
+					if (!menuItem) return;
+					
+					const sectionTop = section.offsetTop - 50;
+					const sectionHeight = section.offsetHeight;
+					
+					if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+						document.querySelectorAll('#colorlib-main-menu a').forEach(item => {
+							item.closest('li').classList.remove('active');
+						});
+						menuItem.closest('li').classList.add('active');
+					}
+				});
+			};
+			
+			// Handle smooth scrolling for navigation items
+			document.querySelectorAll('#colorlib-main-menu a[data-nav-section]').forEach(link => {
+				link.addEventListener('click', function(e) {
+					e.preventDefault();
+					const sectionId = this.getAttribute('data-nav-section');
+					const targetSection = document.querySelector(`section[data-section="${sectionId}"]`);
+					
+					if (targetSection) {
+						window.scrollTo({
+							top: targetSection.offsetTop - 30,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+			
+			window.addEventListener('scroll', updateNavActive);
+			updateNavActive(); // Initial call on page load
+		});
+	</script>
 
 	<!-- MAIN JS -->
 	<script src="js/main.js"></script>
