@@ -1,0 +1,30 @@
+# macOS metadata
+.DS_Store
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Local/editor/tooling output
+.sass-cache/
+.idea/
+.vscode/
+node_modules/
+Prepros Export/
+tmp/
+output/
+
+# Personal documents not deployed with the website
+Renaud_Vandeghen_Resume.*
+Statement_of_purpose.*

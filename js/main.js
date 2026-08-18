@@ -146,6 +146,10 @@
 	var clickMenu = function() {
 
 		$('#navbar a:not([class="external"])').click(function(event){
+			var href = $(this).attr('href');
+			if (href && href !== '#' && href.charAt(0) !== '#') {
+				return;
+			}
 			var section = $(this).data('nav-section'),
 				navbar = $('#navbar');
 
@@ -171,7 +175,7 @@
 	// Reflect scrolling in navigation
 	var navActive = function(section) {
 
-		var $el = $('#navbar > ul');
+		var $el = $('#navbar ul');
 		$el.find('li').removeClass('active');
 		$el.each(function(){
 			$(this).find('a[data-nav-section="'+section+'"]').closest('li').addClass('active');
