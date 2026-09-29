@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Multi-View Captions improves video-text pretraining with complementary summary, detailed, and semantically positive captions.">
+  <meta name="keywords" content="video-text pretraining, multi-view captions, video-language learning, InternVid">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advancing Video-Text Pretraining with Multi-View Captions</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<header class="hero site-hero">
+  <div class="hero-body">
+    <div class="site-container has-text-centered">
+      <p class="site-eyebrow">Video-text pretraining</p>
+      <h1 class="title publication-title">Advancing Video-Text Pretraining with Multi-View Captions</h1>
+
+      <div class="publication-authors">
+        <span class="author-block">Fida Mohammad Thoker<sup>1,†</sup>,</span>
+        <span class="author-block">Renaud Vandeghen<sup>2,†</sup>,</span>
+        <span class="author-block">Karen Sanchez<sup>1</sup>,</span>
+        <span class="author-block">Marc Van Droogenbroeck<sup>2</sup>,</span>
+        <span class="author-block">Bernard Ghanem<sup>1</sup></span>
+      </div>
+
+      <div class="affiliations">
+        <span><sup>1</sup> King Abdullah University of Science and Technology (KAUST)</span>
+        <span><sup>2</sup> University of Liège</span>
+      </div>
+      <p class="equal-contribution">† Equal contribution</p>
+
+      <div class="publication-links">
+        <a href="https://arxiv.org/abs/2609.35090" class="button is-rounded is-dark" aria-label="Paper on arXiv">
+          <span class="icon"><i class="fas fa-file-alt" aria-hidden="true"></i></span>
+          <span>arXiv</span>
+        </a>
+        <a href="https://github.com/rvandeghen/mvc" class="button is-rounded is-dark">
+          <span class="icon"><i class="fab fa-github" aria-hidden="true"></i></span>
+          <span>GitHub</span>
+        </a>
+        <a href="#results" class="button is-rounded is-light">Results</a>
+      </div>
+
+      <div class="hero-facts" aria-label="Project summary">
+        <div><strong>10M</strong><span>videos recaptioned</span></div>
+        <div><strong>2</strong><span>caption granularities</span></div>
+        <div><strong>3</strong><span>supervision stages</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="section-nav" aria-label="Page sections">
+  <div class="site-container">
+    <a href="#examples">Caption examples</a>
+    <a href="#captioning-pipeline">Captioning pipeline</a>
+    <a href="#loss">Training objective</a>
+    <a href="#results">Results</a>
+    <a href="#abstract">Abstract</a>
+  </div>
+</nav>
+
+<main>
+  <section class="section-panel abstract-section" id="abstract">
+    <div class="site-container abstract-copy">
+      <p class="section-kicker">Abstract</p>
+      <h2>Video-text pretraining with richer language supervision</h2>
+      <p>
+        Video-text pretraining has advanced through larger models and datasets, yet the quality of language
+        supervision remains underexplored. Existing web-scale datasets often provide only one sparse caption per
+        video, while captioning models can introduce unsupported details. We propose a large-scale multimodal
+        language-model framework that creates complementary summary and detailed captions, refines detailed
+        descriptions through visual reasoning, and adds semantically positive captions. To use these views
+        effectively, we introduce separate <code class="token-text">CLS</code> tokens for summary and detailed text. Across standard, fine-grained,
+        and detailed text-to-video retrieval benchmarks, MVC consistently improves zero-shot and fine-tuned
+        performance while using smaller pretraining corpora than existing approaches.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-panel examples-section" id="examples">
+    <div class="site-container">
+      <div class="section-heading">
+        <p class="section-kicker">From one caption to several views</p>
+        <h2>One video, richer supervision</h2>
+        <p>
+          A single source caption can miss the actions and context in a clip. MVC keeps a concise summary
+          alongside a refined detailed description and a semantically focused positive caption.
+        </p>
+      </div>
+
+      <div class="example-grid">
+        <article class="example-card">
+          <figure class="clip-player">
+            <video controls playsinline muted preload="auto" aria-label="Outdoor cooking video, 19.9 seconds">
+              <source src="./assets/videos/outdoor-wok.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <figcaption><span>Outdoor cooking</span><span>19.9 seconds</span></figcaption>
+          </figure>
+          <div class="example-copy">
+            <div class="source-caption">
+              <span class="caption-label">Original · one caption</span>
+              <p>a boy preparing food in a large pot</p>
+            </div>
+            <div class="caption-view">
+              <span class="caption-label summary-label">MVC summary</span>
+              <p>The boy prepares a dish by pouring oil into a wok and adding chopped green onions.</p>
+            </div>
+            <div class="caption-view">
+              <span class="caption-label detail-label">Refined detailed caption</span>
+              <p>
+                A young boy in a red shirt and black shorts stands in an outdoor kitchen. He pours oil from a jar into a large wok over a fire, then walks to a wooden table, picks up a plate with chopped onions and green vegetables, and adds them to the wok. The setting includes various cooking tools, a yellow basket, and greenery in the background.
+              </p>
+            </div>
+            <div class="caption-view positive-view">
+              <span class="caption-label positive-label">Semantic positive</span>
+              <p>
+                The boy pours yellow liquid from a glass jar into the large metal wok, resulting in the liquid collecting in the bottom of the wok as it begins to heat on the fire.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="example-card">
+          <figure class="clip-player">
+            <video controls playsinline muted preload="auto" aria-label="People playing bocce, 10.8 seconds">
+              <source src="./assets/videos/bocce-game.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <figcaption><span>Bocce game</span><span>10.8 seconds</span></figcaption>
+          </figure>
+          <div class="example-copy">
+            <div class="source-caption">
+              <span class="caption-label">Original · one caption</span>
+              <p>two old ladies playing bocce</p>
+            </div>
+            <div class="caption-view">
+              <span class="caption-label summary-label">MVC summary</span>
+              <p>A woman in a blue sweater throws a ball and walks forward, while others prepare to throw more balls in an outdoor game.</p>
+            </div>
+            <div class="caption-view">
+              <span class="caption-label detail-label">Refined detailed caption</span>
+              <p>
+                The video shows a group of people playing bocce ball on an outdoor paved court. The game involves throwing balls toward a target ball. One individual throws a ball, then walks away. Other people are present in the background, some standing and walking. The setting includes a white building with columns, steps, and windows, along with grass and other structures. Players are dressed in casual clothing.
+              </p>
+            </div>
+            <div class="caption-view positive-view">
+              <span class="caption-label positive-label">Semantic positive</span>
+              <p>
+                The woman in the pink cap and blue jacket releases a metal ball from her right hand, causing it to roll across the paved surface and come to rest near other scattered metal balls on the ground.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="section-note">
+        Examples are from 10–20 second clips in InternVid-10M-FLT. MVC also creates a second summary and detailed caption, then generates additional positive views for training.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-panel pipeline-section" id="captioning-pipeline">
+    <div class="site-container">
+      <div class="section-heading">
+        <p class="section-kicker">Captioning pipeline</p>
+        <h2>Generate, verify, and diversify captions</h2>
+        <p>
+          MVC builds complementary language supervision for each video, then trains the text encoder to represent
+          summary and detailed descriptions separately.
+        </p>
+      </div>
+
+      <figure class="pipeline-figure">
+        <img src="./assets/mvc-pipeline.png" alt="MVC pipeline: two video captioning models generate summary and detailed descriptions; a reasoning model refines detailed captions; and semantic positive captions are generated from the verified descriptions.">
+        <figcaption>
+          Two captioning models create summary and detailed views. Visual reasoning corrects unsupported details,
+          and semantic positives describe other grounded aspects of the clip.
+        </figcaption>
+      </figure>
+
+      <div class="pipeline-stages">
+        <article>
+          <span class="step-number">01</span>
+          <h3>Multi-view captions</h3>
+          <p>Tarsier2-Recap-7B and Qwen3-VL-30B-Instruct produce concise summaries and detailed descriptions.</p>
+        </article>
+        <article>
+          <span class="step-number">02</span>
+          <h3>Visual refinement</h3>
+          <p>Qwen3-VL-8B-Thinking checks detailed captions against the video and removes unsupported claims.</p>
+        </article>
+        <article>
+          <span class="step-number">03</span>
+          <h3>Semantic positives</h3>
+          <p>Additional captions shift attention to other visible actions or objects while staying grounded in the same clip.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-panel loss-section" id="loss">
+    <div class="site-container">
+      <div class="section-heading">
+        <p class="section-kicker">Granularity-aware text representations</p>
+        <h2>Two <code class="token-text">CLS</code> tokens for two caption views</h2>
+        <p>
+          MVC assigns a separate <code class="token-text">CLS</code> token to summary captions and to refined detailed or semantic positive captions.
+          Each view uses video-text contrastive learning (VTC), video-text matching (VTM), and masked language
+          modeling (MLM), while sharing the same video representation.
+        </p>
+      </div>
+
+      <div class="representation-grid">
+        <article class="representation-card dual-card">
+          <div class="representation-heading">
+            <span class="representation-index">2</span>
+            <div>
+              <h3>Dual <code class="token-text">CLS</code> · MVC</h3>
+              <p>Each caption granularity gets its own token.</p>
+            </div>
+          </div>
+          <div class="dual-flow">
+            <div class="dual-flow-row">
+              <div class="caption-source-chip summary-chip">Summary<br><small>\(\{O,S_1,S_2\}\)</small></div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="cls-token summary-token">\(\texttt{[CLS]}_s\)</div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="view-loss">\(\mathcal{L}^{s}\)</div>
+            </div>
+            <div class="dual-flow-row">
+              <div class="caption-source-chip detail-chip">Detailed<br><small>\(\{D_1^{*},D_2^{*},P_1,P_2\}\)</small></div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="cls-token detail-token">\(\texttt{[CLS]}_d\)</div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="view-loss">\(\mathcal{L}^{d}\)</div>
+            </div>
+          </div>
+          <div class="loss-equation">
+            \[
+            \begin{aligned}
+            \mathcal{L}^{s} &= \mathcal{L}_{\mathrm{VTC}}^{s} + \mathcal{L}_{\mathrm{VTM}}^{s} + \mathcal{L}_{\mathrm{MLM}}^{s}, \\
+            \mathcal{L}^{d} &= \mathcal{L}_{\mathrm{VTC}}^{d} + \mathcal{L}_{\mathrm{VTM}}^{d} + \mathcal{L}_{\mathrm{MLM}}^{d}.
+            \end{aligned}
+            \]
+            \[
+            \mathcal{L} = \frac{1}{2}\left(\mathcal{L}^{s}+\mathcal{L}^{d}\right).
+            \]
+          </div>
+          <p class="representation-note">Both views use the same video representation; their losses are averaged.</p>
+        </article>
+      </div>
+      <p class="loss-rationale">
+        Summary captions capture the main event in a few words; detailed captions describe actors, objects, and action order.
+        Separate <code class="token-text">CLS</code> tokens let the text encoder learn a representation suited to each granularity, while both views remain aligned
+        with the same video. This gives the model room to preserve complementary summary and detailed information.
+      </p>
+      <p class="section-note">
+        For each video, MVC samples one summary caption and one refined detailed or semantic positive caption and applies
+        the corresponding view-specific loss to each.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-panel results-section" id="results">
+    <div class="site-container">
+      <div class="section-heading">
+        <p class="section-kicker">Results</p>
+        <h2>Baseline and MVC results at 5M and 10M</h2>
+        <p>
+          The tables below reproduce the paper's standard zero-shot, fine-tuned, and fine-grained zero-shot results.
+          Baseline-B uses original captions; MVC uses multi-view captions. The 10M rows are emphasized.
+          All scores are Recall@1; higher is better.
+        </p>
+      </div>
+
+      <div class="results-block">
+        <h3>Table 1 · Standard zero-shot retrieval</h3>
+        <div class="table-scroll" role="region" aria-label="Table 1, standard zero-shot retrieval results" tabindex="0">
+          <table class="results-table full-results standard-table">
+  <caption>Zero-shot text-to-video retrieval (R@1)</caption>
+  <thead>
+    <tr>
+      <th scope="col">Model</th>
+      <th scope="col">Samples</th>
+      <th scope="col">MSR-VTT</th>
+      <th scope="col">DiDeMo</th>
+      <th scope="col">ActivityNet</th>
+      <th scope="col">LSMDC</th>
+      <th scope="col">MSVD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="baseline-row"><th scope="row">Baseline-B <small>original captions</small></th><td>5M</td><td>34.2</td><td>32.7</td><td>29.6</td><td>11.1</td><td>39.1</td></tr>
+    <tr class="mvc-row mvc-5m-row"><th scope="row">MVC-B (Ours)</th><td>5M</td><td>38.2</td><td>58.9</td><td>58.6</td><td>18.1</td><td>43.3</td></tr>
+    <tr class="mvc-row mvc-5m-row"><th scope="row">MVC-L (Ours)</th><td>5M</td><td>40.6</td><td>61.2</td><td>63.9</td><td>21.0</td><td>48.4</td></tr>
+    <tr class="mvc-row mvc-10m-row"><th scope="row">MVC-B (Ours)</th><td>10M</td><td>39.0</td><td><u>61.0</u></td><td><u>61.0</u></td><td>18.6</td><td>44.2</td></tr>
+    <tr class="mvc-row mvc-10m-row"><th scope="row">MVC-L (Ours)</th><td>10M</td><td>41.1</td><td><strong>62.0</strong></td><td><strong>66.9</strong></td><td><u>24.1</u></td><td>49.0</td></tr>
+  </tbody>
+</table>
+        </div>
+        <p class="table-note">Baseline-B uses original InternVid captions. MVC rows use InternVid-10M-FLT with multi-view captions; 5M and 10M denote the pretraining subset size.</p>
+      </div>
+
+      <div class="results-block">
+        <h3>Table 2 · Fine-tuned retrieval</h3>
+        <div class="table-scroll" role="region" aria-label="Table 2, fine-tuned retrieval results" tabindex="0">
+          <table class="results-table full-results finetune-table">
+  <caption>Fine-tuned text-to-video retrieval (R@1)</caption>
+  <thead>
+    <tr>
+      <th scope="col">Model</th>
+      <th scope="col">Samples</th>
+      <th scope="col">MSR-VTT</th>
+      <th scope="col">DiDeMo</th>
+      <th scope="col">ActivityNet</th>
+      <th scope="col">LSMDC</th>
+      <th scope="col">MSVD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="baseline-row"><th scope="row">Baseline-B <small>original captions</small></th><td>5M</td><td>48.0</td><td>61.2</td><td>55.7</td><td>31.1</td><td>45.0</td></tr>
+    <tr class="mvc-row mvc-5m-row"><th scope="row">MVC-B (Ours)</th><td>5M</td><td>50.3</td><td><u>72.9</u></td><td><u>64.4</u></td><td>34.1</td><td>46.0</td></tr>
+    <tr class="mvc-row mvc-5m-row"><th scope="row">MVC-L (Ours)</th><td>5M</td><td><u>55.5</u></td><td><strong>81.3</strong></td><td><strong>72.1</strong></td><td><strong>43.2</strong></td><td><u>53.8</u></td></tr>
+    <tr class="mvc-row mvc-10m-row"><th scope="row">MVC-B (Ours)</th><td>10M</td><td>52.8</td><td><u>74.8</u></td><td>65.2</td><td>35.2</td><td>50.1</td></tr>
+    <tr class="mvc-row mvc-10m-row"><th scope="row">MVC-L (Ours)</th><td>10M</td><td><strong>58.1</strong></td><td><strong>82.9</strong></td><td><strong>75.2</strong></td><td><strong>45.6</strong></td><td><u>55.8</u></td></tr>
+  </tbody>
+</table>
+        </div>
+        <p class="table-note">Baseline-B uses original InternVid captions. MVC rows use InternVid-10M-FLT with multi-view captions; 5M and 10M denote the pretraining subset size.</p>
+      </div>
+
+      <div class="results-block">
+        <h3>Table 3 · Fine-grained zero-shot retrieval</h3>
+        <div class="table-scroll" role="region" aria-label="Table 3, fine-grained zero-shot retrieval results" tabindex="0">
+          <table class="results-table full-results fine-table">
+  <caption>Fine-grained and detailed text-to-video retrieval (R@1)</caption>
+  <thead>
+    <tr>
+      <th scope="col">Model</th>
+      <th scope="col">Samples</th>
+      <th scope="col">CaRe-S</th>
+      <th scope="col">CaRe-T</th>
+      <th scope="col">DREAM-D</th>
+      <th scope="col">DREAM-E</th>
+      <th scope="col">S2S-W</th>
+      <th scope="col">S2S-S</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="baseline-row"><th scope="row">Baseline-B <small>original captions</small></th><td>5M</td><td>51.2</td><td>29.6</td><td>59.5</td><td>18.5</td><td>62.4</td><td>44.4</td></tr>
+    <tr class="mvc-row mvc-5m-row"><th scope="row">MVC-B (Ours)</th><td>5M</td><td>89.4</td><td>60.1</td><td>94.1</td><td>29.1</td><td>94.4</td><td>73.5</td></tr>
+    <tr class="mvc-row mvc-5m-row"><th scope="row">MVC-L (Ours)</th><td>5M</td><td><u>90.9</u></td><td><u>66.8</u></td><td><u>95.7</u></td><td><u>33.1</u></td><td><u>96.0</u></td><td><u>76.4</u></td></tr>
+    <tr class="mvc-row mvc-10m-row"><th scope="row">MVC-B (Ours)</th><td>10M</td><td>90.6</td><td>60.9</td><td>94.5</td><td>30.1</td><td>95.2</td><td>75.0</td></tr>
+    <tr class="mvc-row mvc-10m-row"><th scope="row">MVC-L (Ours)</th><td>10M</td><td><strong>92.9</strong></td><td><strong>67.4</strong></td><td><strong>96.4</strong></td><td><strong>33.6</strong></td><td><strong>96.4</strong></td><td><strong>77.3</strong></td></tr>
+  </tbody>
+</table>
+        </div>
+        <p class="table-note">CaRe-S/T = CaReBench spatial/temporal; DREAM-D/E = DREAM-1K detailed/events; S2S-W/S = Shot2Story whole-clip/single-shot. Baseline-B uses original captions; MVC uses multi-view captions.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer site-footer">
+  <div class="site-container">
+    <p>
+      Adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies template</a> by Keunhong Park.
+      The template is licensed under
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
