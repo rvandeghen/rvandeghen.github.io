@@ -610,6 +610,39 @@ code.token-text {
   border-top: 1px solid #e7eeea;
 }
 
+.result-highlights {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto 1.5rem;
+  max-width: 960px;
+}
+
+.result-highlights div {
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  min-height: 5.2rem;
+  padding: 0.8rem 1rem;
+}
+
+.result-highlights strong {
+  color: var(--teal);
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-size: 1.55rem;
+  letter-spacing: -0.04em;
+}
+
+.result-highlights span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .results-block + .results-block {
   margin-top: 2.8rem;
 }
@@ -856,6 +889,16 @@ code.token-text {
   .dual-flow-row .cls-token {
     font-size: 0.8rem;
     min-width: 3.6rem;
+  }
+
+  .result-highlights {
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+  }
+
+  .result-highlights div {
+    justify-content: flex-start;
+    min-height: 4.2rem;
   }
 
   .abstract-copy > p:last-child {
